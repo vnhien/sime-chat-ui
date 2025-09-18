@@ -12,12 +12,14 @@
     "@aptos-labs/ts-sdk": "^5.0.0",
     "@aptos-labs/wallet-adapter-core": "^7.3.0",
     "@aptos-labs/wallet-adapter-react": "^7.0.7",
+    "@tanstack/react-query": "^5.89.0",
     "@telegram-apps/bridge": "^2.11.0",
     "@wallet-standard/core": "^1.1.1",
     "aptos": "^1.21.0",
     "next": "15.5.3",
     "react": "19.1.0",
     "react-dom": "19.1.0",
+    "react-toastify": "^11.0.5",
     "socket.io-client": "^4.8.1"
   },
   "devDependencies": {

@@ -1,9 +1,7 @@
-import { groupAndSortWallets, useWallet } from "@aptos-labs/wallet-adapter-react";
+import { useWallet } from "@aptos-labs/wallet-adapter-react";
 
 export default function ConnectWallet() {
-  const { wallets = [], notDetectedWallets = [], connect, account } = useWallet();
-  console.log("🚀 ~ ConnectWallet ~ account:", account);
-  console.log("🚀 ~ ConnectWallet ~ wallets:", wallets);
+  const { wallets = [], connect, account } = useWallet();
 
   return (
     <div>

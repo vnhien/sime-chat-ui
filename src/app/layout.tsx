@@ -1,7 +1,9 @@
+import Applayout from "@/components/AppLayout";
+import { UserProvider } from "@/context/user-info-context";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { ToastContainer } from "react-toastify";
 import "./globals.css";
-import Applayout from "@/components/AppLayout";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,7 +28,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <Applayout> {children}</Applayout>
+        <ToastContainer />
+        <UserProvider>
+          <Applayout> {children}</Applayout>
+        </UserProvider>
       </body>
     </html>
   );

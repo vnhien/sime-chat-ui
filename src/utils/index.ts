@@ -10,3 +10,29 @@ export function urlB64ToUint8Array(base64String: string) {
   }
   return outputArray;
 }
+
+// Token management utilities
+export const AUTH_TOKEN_KEY = "jwt";
+
+export const saveAuthToken = (token: string): void => {
+  if (typeof window !== "undefined") {
+    localStorage.setItem(AUTH_TOKEN_KEY, token);
+  }
+};
+
+export const getAuthToken = (): string | null => {
+  if (typeof window !== "undefined") {
+    return localStorage.getItem(AUTH_TOKEN_KEY);
+  }
+  return null;
+};
+
+export const removeAuthToken = (): void => {
+  if (typeof window !== "undefined") {
+    localStorage.removeItem(AUTH_TOKEN_KEY);
+  }
+};
+
+export const isAuthenticated = (): boolean => {
+  return !!getAuthToken();
+};
