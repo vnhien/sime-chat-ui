@@ -1,6 +1,14 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  ReactNode,
+  useMemo,
+  useCallback,
+} from "react";
 import { getAuthToken, removeAuthToken } from "@/utils/index";
 import { AuthUser } from "@/types/auth";
 import { getUserInfo } from "@/services/auth";
@@ -57,7 +65,7 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [userInfo, setUserInfo] = useState<AuthUser | null>(null);
   const [activeFriend, setActiveFriend] = useState("");
-  const updateAuthStatus = async () => {
+  const updateAuthStatus = useCallback(async () => {
     const token = getAuthToken();
 
     if (!token) {
@@ -93,32 +101,43 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
       setUserInfo(null);
       setActiveFriend("");
     }
-  };
+  }, []);
 
-  const logout = () => {
+  const logout = useCallback(() => {
     removeAuthToken();
     setIsLoggedIn(false);
     setUserInfo(null);
-  };
+  }, []);
 
-  const handleSetUserInfo = (user: AuthUser | null) => {
+  const handleSetUserInfo = useCallback((user: AuthUser | null) => {
     setUserInfo(user);
     setIsLoggedIn(!!user);
-  };
+  }, []);
 
   useEffect(() => {
     updateAuthStatus();
-  }, []);
+  }, [updateAuthStatus]);
 
-  const value: UserContextType = {
-    isLoggedIn,
-    userInfo,
-    setUserInfo: handleSetUserInfo,
-    logout,
-    updateAuthStatus,
-    activeFriend,
-    setActiveFriend,
-  };
+  const value: UserContextType = useMemo(
+    () => ({
+      isLoggedIn,
+      userInfo,
+      setUserInfo: handleSetUserInfo,
+      logout,
+      updateAuthStatus,
+      activeFriend,
+      setActiveFriend,
+    }),
+    [
+      isLoggedIn,
+      userInfo,
+      handleSetUserInfo,
+      logout,
+      updateAuthStatus,
+      activeFriend,
+      setActiveFriend,
+    ]
+  );
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 };

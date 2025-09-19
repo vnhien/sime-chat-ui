@@ -14,6 +14,7 @@ type TMessage = {
 
 export default function ChatWindow() {
   const { userInfo, activeFriend } = useUser();
+  console.log("🚀 ~ ChatWindow ~ userInfo:", userInfo);
   const [connected, setConnected] = useState<boolean>(false);
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState<TMessage[]>([]);

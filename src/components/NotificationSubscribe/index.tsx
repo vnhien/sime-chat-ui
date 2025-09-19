@@ -25,6 +25,7 @@ export default function NotificationSubscribe({ userId }: { userId: string }) {
           const reg = await navigator.serviceWorker.register("/sw.js", {
             scope: "/",
           });
+          await navigator.serviceWorker.ready;
           if (reg.installing) {
             console.log("Service worker installing");
           } else if (reg.waiting) {
